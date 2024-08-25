@@ -28,9 +28,6 @@
             margin-left: auto;
             margin-right: auto;
         }
-        #apology-message.smaller {
-            font-size: 14px;
-        }
         #apology-message.disappear {
             display: none;
         }
@@ -41,19 +38,23 @@
             display: block;
             margin-top: 20px;
         }
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
     </style>
 </head>
 <body>
     <h1 id="site-title">Hello Ree</h1>
-    <p id="description">It's supposed to be "Hello World!"" but Hello Ree sounds way better :)</p>
+    <p id="description">It's supposed to be "Hello World!" but Hello Ree sounds way better :)</p>
 
     <div id="apology-message">
-        I'm dumb when it comes to explaining how I feel but I really like you. I'm sure that I like and love you. Are you still sad?
+        I'm dumb when it comes to explaining how I feel but I really like you. I'm sure that I like and love you. Bati na tayo? :)
     </div>
 
     <div id="buttons-container">
-        <button id="yes-button" onclick="handleResponse(true)">Yes</button>
-        <button id="no-button" onclick="handleResponse(false)">No</button>
+        <button id="yes-button" onclick="handleResponse(true)">Okie</button>
+        <button id="no-button" onclick="handleResponse(false)">llaollao</button>
     </div>
     
     <button id="reset-button" onclick="resetPage()">Reset</button>
@@ -68,7 +69,7 @@
             'https://qph.cf2.quoracdn.net/main-qimg-bf982ca662eef7d86a121ef109887e2d',
             'https://images.articlesfactory.com/750x0/98a78adb-7886-4575-a3ad-f17ea6645e44.webp',
             'https://steamuserimages-a.akamaihd.net/ugc/947329338759835128/7231933026029A252E9814F28B37C48CEE3F4AA0/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false',
-            'https://preview.redd.it/help-me-find-this-exact-crying-cat-meme-v0-lmihb7vc88lc1.jpeg?width=1170&format=pjpg&auto=webp&s=25057f2f3ec3e8169f92459811a608c5e0c528d3',
+            'https://instagram.fyzd1-2.fna.fbcdn.net/v/t1.15752-9/455264670_522924530203448_2970937019983050627_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=0024fc&_nc_ohc=omgCIEwyx6IQ7kNvgFCsWOh&_nc_ht=instagram.fyzd1-2.fna&oh=03_Q7cD1QETIAvd5HK52wo8ugu-YQHWuV3_WScqn13imnAG28CGXA&oe=66F2FCE8',
             'https://i.pinimg.com/736x/03/ea/2e/03ea2ef4a750a3124895d302ce96a904.jpg'
         ];
 
@@ -76,22 +77,19 @@
             const apologyMessage = document.getElementById('apology-message');
             const picture = document.getElementById('picture');
             const noButton = document.getElementById('no-button');
+            const yesButton = document.getElementById('yes-button');
 
             if (accepted) {
-                apologyMessage.style.display = 'none';
+                apologyMessage.textContent = 'yie love you'; // Change the text message
                 picture.src = 'https://scontent.xx.fbcdn.net/v/t1.15752-9/456572106_3783577911930249_8678090423936257070_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=0024fc&_nc_ohc=H7ODL--6esgQ7kNvgE1u4xw&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_Q7cD1QHDlPsztozJQ4_RsMP8uf59mSVeVuiE2x1lDTBMp1WWrw&oe=66F2EA27'; // Replace with your happy picture path
                 picture.style.display = 'block';
-                document.body.style.backgroundImage = "url('https://marketplace.canva.com/EAEvPRTwFtU/3/0/1600w/canva-beige-doodle-heart-desktop-wallpaper-zwtpUKFUbWs.jpg')"; // Change background color on "Yes" click
-                document.body.style.backgroundImage = "url('https://marketplace.canva.com/EAEvPRTwFtU/3/0/1600w/canva-beige-doodle-heart-desktop-wallpaper-zwtpUKFUbWs.jpg')"; // Clear any background image
+                document.body.style.backgroundImage = "url('https://marketplace.canva.com/EAEvPRTwFtU/3/0/1600w/canva-beige-doodle-heart-desktop-wallpaper-zwtpUKFUbWs.jpg')"; // Change background image on "Yes" click
+                noButton.disabled = true; // Disable the "No" button
             } else {
                 noClickCount++;
                 if (noClickCount >= 5) {
                     noButton.style.display = 'none'; // Hide the "No" button after 5 clicks
                 } else {
-                    apologyMessage.classList.add('smaller');
-                    setTimeout(() => {
-                        apologyMessage.classList.remove('smaller');
-                    }, 500); // Reset size after shrinking
                     // Change picture each time "No" is clicked
                     picture.src = images[noClickCount - 1];
                     picture.style.display = 'block';
@@ -106,10 +104,12 @@
             const yesButton = document.getElementById('yes-button');
 
             noClickCount = 0;
-            apologyMessage.classList.remove('disappear', 'smaller');
+            apologyMessage.textContent = 'I\'m dumb when it comes to explaining how I feel but I really like you. I\'m sure that I like and love you. Are you still sad?'; // Reset the apology message
+            apologyMessage.classList.remove('disappear');
             apologyMessage.style.display = 'block';
             picture.style.display = 'none';
             noButton.style.display = 'inline';
+            noButton.disabled = false; // Re-enable the "No" button
             yesButton.style.display = 'inline';
             document.body.style.backgroundColor = '#FFFFFF'; // Reset background color to white
             document.body.style.backgroundImage = ''; // Clear any background image
